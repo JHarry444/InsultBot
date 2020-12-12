@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
-const Axios = require('axios');
-const sendInsult = require('./spinTheWheel');
-const { token, cads } = require('./constants.json');
+const { token } = require('./constants.json');
+const commands = require('./commands');
 
 const bot = new Discord.Client();
 
@@ -12,19 +11,11 @@ bot.on('ready', () => {
 });
 
 bot.on('message', (msg) => {
-  let reply = '';
+  if (msg.author.username.toLowerCase() === 'computer') return;
 
-  const author = msg.author.username.toLowerCase();
-  if (author === 'computer') return;
-
-  const content = msg.cleanContent.toLowerCase();
-
-  if (content.includes('earl') && content.includes('earl') && content.includes('hot')
-  ) {
-    reply = 'https://www.youtube.com/watch?v=R2IJdfxWtPM';
-  } else if (cads.includes(author) && sendInsult()) {
-    Axios.get('https://insult.mattbas.org/api/insult').then(({ data }) => msg.reply(data));
+  const content = msg.cleanContent.toLowerCase().trim();
+  if (content.startsWith('!computer')) {
+    const [command, ...args] = content.replace('!computer ', '').split(' ').filter((arg) => arg);
+    if (commands[command]) commands[command](msg, args); else commands.error(msg, 'Invalid command');
   }
-
-  if (reply) msg.reply(reply);
 });
