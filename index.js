@@ -17,17 +17,13 @@ bot.on('message', (msg) => {
   const author = msg.author.username.toLowerCase();
   if (author === 'computer') return;
 
-  if (cads.includes(author) && sendInsult()) {
-    Axios.get('https://insult.mattbas.org/api/insult').then(({ data }) => msg.reply(data));
-  } else if (author === 'tomfowler' || author === 'tom fowler') {
-    reply = 'Get a haircut.';
-  }
-
   const content = msg.cleanContent.toLowerCase();
 
   if (content.includes('earl') && content.includes('earl') && content.includes('hot')
   ) {
     reply = 'https://www.youtube.com/watch?v=R2IJdfxWtPM';
+  } else if (cads.includes(author) && sendInsult()) {
+    Axios.get('https://insult.mattbas.org/api/insult').then(({ data }) => msg.reply(data));
   }
 
   if (reply) msg.reply(reply);
