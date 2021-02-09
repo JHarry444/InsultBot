@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const tea = (msg) => {
-  msg.reply('https://www.youtube.com/watch?v=R2IJdfxWtPM');
+  msg.reply('https://www.youtube.com/watch?v=czuicfphvZ4');
 };
 
 const define = (msg, words) => {
